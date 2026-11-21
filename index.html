@@ -1,119 +1,291 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đổi Link Shopee Có Mã Toàn Sàn</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Đổi Link Shopee</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 16px;
+      background-color: #f4f5f7;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 440px;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 8px 4px 16px;
+    }
+    .header-row h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #111827;
+    }
+    .badge {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4b5563;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.25;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    .label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+    .input-box {
+      width: 100%;
+      padding: 14px 14px;
+      font-size: 15px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      outline: none;
+      background: #f9fafb;
+      color: #111827;
+      transition: border-color 0.2s;
+    }
+    .input-box:focus {
+      border-color: #1e22aa;
+      background: #ffffff;
+    }
+    .source-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .source-btn {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1.5px solid #e5e7eb;
+      background: #f9fafb;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4b5563;
+      cursor: pointer;
+    }
+    .source-btn.active {
+      border-color: #1e22aa;
+      background: #eef2ff;
+      color: #1e22aa;
+    }
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:active {
+      transform: scale(0.99);
+    }
+    .btn-light {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    .btn-primary {
+      background: #1a1d88;
+      color: #ffffff;
+    }
+    .btn-shopee {
+      background: #ee6c4d;
+      color: #ffffff;
+    }
+    .btn-shopee.ready {
+      background: #ee4d2d;
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      min-height: 18px;
+    }
+    .status.loading {
+      color: #059669;
+    }
+    .status.success {
+      color: #059669;
+    }
+    .status.error {
+      color: #dc2626;
+    }
+    .footer-note {
+      margin-top: 16px;
+      padding: 0 4px;
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-md p-5 space-y-4">
-        <div class="flex justify-between items-start">
-            <h1 class="text-lg font-bold text-gray-800 leading-snug">Đổi link Shopee có mã toàn sàn</h1>
-            <span class="bg-indigo-50 text-indigo-600 text-xs font-medium px-2.5 py-1 rounded-full">Chỉ 1 link/lần</span>
-        </div>
-
-        <!-- Chọn nguồn mã FB hoặc IG -->
-        <div class="flex gap-2">
-            <button id="btnFb" onclick="selectSource('fb')" class="flex-1 py-1.5 text-sm font-semibold rounded-lg bg-blue-600 text-white">Mã Facebook (FB)</button>
-            <button id="btnIg" onclick="selectSource('ig')" class="flex-1 py-1.5 text-sm font-semibold rounded-lg bg-gray-200 text-gray-700">Mã Instagram (IG)</button>
-        </div>
-
-        <!-- Ô nhập link -->
-        <div>
-            <label class="block text-sm font-semibold text-gray-600 mb-1.5">Nhập link Shopee</label>
-            <input type="text" id="inputLink" placeholder="https://s.shopee.vn/..." 
-                class="w-full px-3.5 py-2.5 border-2 border-blue-400 rounded-xl focus:outline-none text-sm text-gray-700">
-        </div>
-
-        <!-- Các nút chức năng giống hệt mẫu -->
-        <div class="space-y-2.5">
-            <button onclick="pasteLink()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-xl text-sm transition">
-                Dán sản phẩm
-            </button>
-
-            <button id="convertBtn" onclick="convertLink()" class="w-full py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-xl text-sm transition">
-                Nhận voucher
-            </button>
-
-            <button id="copyBtn" onclick="copyLink()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-xl text-sm transition">
-                Sao chép
-            </button>
-        </div>
-
-        <p id="statusText" class="text-center text-xs font-medium text-green-600 hidden"></p>
+<body>
+  <div class="container">
+    <div class="header-row">
+      <h1>Đổi link Shopee có mã toàn sàn</h1>
+      <div class="badge">Chỉ 1<br />link/lần</div>
     </div>
 
-    <script>
-        // https://chigiamgia.hoangthihuonggiang09.workers.dev/
-        const WORKER_URL = "https://chigiamgia.hoangthihuonggiang09.workers.dev";
-        let currentSource = "fb";
-        let convertedResult = "";
+    <div class="card">
+      <label class="label" for="shopeeUrl">Nhập link Shopee</label>
+      <input
+        id="shopeeUrl"
+        class="input-box"
+        type="url"
+        placeholder="https://shopee.vn/..."
+        autocomplete="off"
+      />
 
-        function selectSource(src) {
-            currentSource = src;
-            document.getElementById('btnFb').className = src === 'fb' 
-                ? "flex-1 py-1.5 text-sm font-semibold rounded-lg bg-blue-600 text-white" 
-                : "flex-1 py-1.5 text-sm font-semibold rounded-lg bg-gray-200 text-gray-700";
-            document.getElementById('btnIg').className = src === 'ig' 
-                ? "flex-1 py-1.5 text-sm font-semibold rounded-lg bg-pink-600 text-white" 
-                : "flex-1 py-1.5 text-sm font-semibold rounded-lg bg-gray-200 text-gray-700";
+      <div class="source-row">
+        <button type="button" class="source-btn active" id="btnIg" onclick="selectSource('ig')">
+          Mã Instagram
+        </button>
+        <button type="button" class="source-btn" id="btnFb" onclick="selectSource('fb')">
+          Mã Facebook
+        </button>
+      </div>
+
+      <button type="button" class="btn btn-light" onclick="pasteProduct()">
+        Dán sản phẩm
+      </button>
+
+      <button type="button" class="btn btn-primary" onclick="convertLink()">
+        Nhận voucher
+      </button>
+
+      <button type="button" class="btn btn-light" onclick="copyResult()">
+        Sao chép
+      </button>
+
+      <button type="button" class="btn btn-shopee" id="openShopeeBtn" onclick="openShopeeApp()">
+        Mở nhanh qua Shopee
+      </button>
+
+      <div id="statusText" class="status"></div>
+    </div>
+
+    <div class="footer-note">
+      Hệ thống chỉ nhận 1 link Shopee mỗi lần chuyển đổi.
+    </div>
+  </div>
+
+  <script>
+    const WORKER_URL = "https://chigiamgia.hoangthihuonggiang09.workers.dev";
+    let selectedSrc = "ig";
+    let convertedShortLink = "";
+    let convertedAppLink = "";
+
+    function selectSource(src) {
+      selectedSrc = src;
+      document.getElementById("btnIg").classList.toggle("active", src === "ig");
+      document.getElementById("btnFb").classList.toggle("active", src === "fb");
+    }
+
+    function setStatus(msg, type) {
+      const el = document.getElementById("statusText");
+      el.textContent = msg;
+      el.className = "status " + (type || "");
+    }
+
+    async function pasteProduct() {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          document.getElementById("shopeeUrl").value = text.trim();
+          setStatus("", "");
+        }
+      } catch {
+        document.getElementById("shopeeUrl").focus();
+        setStatus("Nhấn giữ vào ô nhập phía trên để dán link.", "error");
+      }
+    }
+
+    async function convertLink() {
+      const raw = document.getElementById("shopeeUrl").value.trim();
+      if (!raw) {
+        setStatus("Vui lòng dán link sản phẩm Shopee.", "error");
+        return;
+      }
+
+      // Lọc lấy đúng 1 link đầu tiên nếu người dùng dán kèm mô tả sản phẩm
+      const urlMatch = raw.match(/https?:\/\/[^\s]+/i);
+      if (!urlMatch) {
+        setStatus("Link không hợp lệ.", "error");
+        return;
+      }
+
+      const cleanInput = urlMatch[0];
+      document.getElementById("shopeeUrl").value = cleanInput;
+      setStatus("Đang chuyển link...", "loading");
+
+      try {
+        const api = `${WORKER_URL}/?url=${encodeURIComponent(cleanInput)}&src=${selectedSrc}`;
+        const res = await fetch(api);
+        const data = await res.json();
+
+        if (!data.success) {
+          setStatus(data.message || "Chuyển đổi thất bại.", "error");
+          return;
         }
 
-        async function pasteLink() {
-            try {
-                const text = await navigator.clipboard.readText();
-                document.getElementById('inputLink').value = text;
-                showStatus("Đã dán link!", "text-blue-600");
-            } catch (err) {
-                showStatus("Trình duyệt chặn tự dán, hãy nhấn giữ vào ô và chọn Dán.", "text-red-500");
-            }
-        }
+        convertedShortLink = data.link;
+        convertedAppLink = data.app_link || data.link;
+        document.getElementById("openShopeeBtn").classList.add("ready");
+        setStatus("Chuyển đổi thành công.", "success");
+      } catch {
+        setStatus("Lỗi kết nối máy chủ, vui lòng thử lại.", "error");
+      }
+    }
 
-        async function convertLink() {
-            const rawLink = document.getElementById('inputLink').value.trim();
-            if (!rawLink) {
-                showStatus("Vui lòng dán link Shopee trước!", "text-red-500");
-                return;
-            }
+    async function copyResult() {
+      const linkToCopy = convertedShortLink || document.getElementById("shopeeUrl").value.trim();
+      if (!linkToCopy) return;
+      try {
+        await navigator.clipboard.writeText(linkToCopy);
+        setStatus("Đã sao chép link.", "success");
+      } catch {
+        setStatus("Không tự sao chép được, hãy bấm Mở nhanh qua Shopee.", "error");
+      }
+    }
 
-            const btn = document.getElementById('convertBtn');
-            btn.innerText = "Đang tạo link...";
-            btn.disabled = true;
-
-            try {
-                const response = await fetch(`${WORKER_URL}?url=${encodeURIComponent(rawLink)}&src=${currentSource}`);
-                const data = await response.json();
-
-                if (data.success) {
-                    convertedResult = data.link;
-                    document.getElementById('inputLink').value = convertedResult;
-                    showStatus("Đã đổi link thành công! Bấm Sao chép để dùng.", "text-green-600");
-                } else {
-                    showStatus("Lỗi: Không nhận diện được link Shopee.", "text-red-500");
-                }
-            } catch (e) {
-                showStatus("Lỗi kết nối server xử lý!", "text-red-500");
-            } finally {
-                btn.innerText = "Nhận voucher";
-                btn.disabled = false;
-            }
-        }
-
-        function copyLink() {
-            const linkToCopy = convertedResult || document.getElementById('inputLink').value;
-            if (!linkToCopy) return;
-            navigator.clipboard.writeText(linkToCopy);
-            showStatus("Đã sao chép link! Mở trên FB/IG để áp mã 22%.", "text-green-600");
-        }
-
-        function showStatus(msg, colorClass) {
-            const el = document.getElementById('statusText');
-            el.innerText = msg;
-            el.className = `text-center text-xs font-medium ${colorClass}`;
-            el.classList.remove('hidden');
-        }
-    </script>
+    function openShopeeApp() {
+      const target = convertedAppLink || convertedShortLink;
+      if (!target) {
+        setStatus("Hãy bấm Nhận voucher trước khi mở Shopee.", "error");
+        return;
+      }
+      window.location.href = target;
+    }
+  </script>
 </body>
 </html>
