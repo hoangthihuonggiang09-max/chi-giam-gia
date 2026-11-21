@@ -162,7 +162,7 @@
         id="shopeeUrl"
         class="input-box"
         type="url"
-        placeholder="https://shopee.vn/..."
+        placeholder="Dán link sản phẩm Shopee vào đây..."
         autocomplete="off"
       />
 
@@ -174,10 +174,6 @@
           Mã Facebook
         </button>
       </div>
-
-      <button type="button" class="btn btn-light" onclick="pasteProduct()">
-        Dán sản phẩm
-      </button>
 
       <button type="button" class="btn btn-primary" onclick="convertLink()">
         Nhận voucher
@@ -217,19 +213,6 @@
       el.className = "status " + (type || "");
     }
 
-    async function pasteProduct() {
-      try {
-        const text = await navigator.clipboard.readText();
-        if (text) {
-          document.getElementById("shopeeUrl").value = text.trim();
-          setStatus("", "");
-        }
-      } catch {
-        document.getElementById("shopeeUrl").focus();
-        setStatus("Nhấn giữ vào ô nhập phía trên để dán link.", "error");
-      }
-    }
-
     async function convertLink() {
       const raw = document.getElementById("shopeeUrl").value.trim();
       if (!raw) {
@@ -237,7 +220,6 @@
         return;
       }
 
-      // Lọc lấy đúng 1 link đầu tiên nếu người dùng dán kèm mô tả sản phẩm
       const urlMatch = raw.match(/https?:\/\/[^\s]+/i);
       if (!urlMatch) {
         setStatus("Link không hợp lệ.", "error");
