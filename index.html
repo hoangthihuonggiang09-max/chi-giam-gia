@@ -264,7 +264,7 @@
   <div class="container">
     <div class="hero">
       <h1>Đổi Link Voucher Shopee</h1>
-      <p>Voucher cập nhật mỗi ngày theo khung giờ 0H - 9H - 15H - 20H </p>
+      <p>Voucher cập nhật mỗi ngày theo khung giờ 0H - 9H - 15H - 20H</p>
       <div class="divider"></div>
     </div>
 
@@ -334,8 +334,7 @@
 
   <script>
     const WORKER_URL = "https://chigiamgia.hoangthihuonggiang09.workers.dev";
-    // Thay link bên dưới bằng link bài viết Facebook của bạn để khách bấm Comment nhảy thẳng tới bài viết đó
-    const FB_POST_URL = "https://www.facebook.com/share/p/1B9UpjZoKu/?mibextid=wwXIfr";
+    const FB_POST_URL = "https://www.facebook.com";
 
     let generatedIgLink = "";
     let generatedFbLink = "";
@@ -400,7 +399,6 @@
         copyBtn.textContent = "✓ ĐÃ SAO CHÉP!";
         copyBtn.classList.add("copied");
       } catch {
-        // Fallback cho trình duyệt chặn clipboard API
         const tempInput = document.createElement("input");
         tempInput.value = generatedFbLink;
         document.body.appendChild(tempInput);
